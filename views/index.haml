@@ -1,0 +1,14 @@
+.patterns
+  -@data.each do |datum|
+    .pattern
+      .count= datum[2]
+      .s1= datum[0]
+      .s2= datum[1]
+      .showHide
+        %span.button
+          show / hide
+      .code
+        -datum[3].each do |block|
+          %pre.block=block
+      .clear
+

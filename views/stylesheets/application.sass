@@ -1,0 +1,64 @@
+@import compass/reset
+@import compass/utilities
+@import compass/css3
+
+// Base font
+=font-default
+  font: 13px Arial, Helvetica, sans-serif
+
+.content
+  margin: 20px auto 20px auto
+  width: 800px
+  
+.patterns
+  .pattern
+    margin: 10px 0px 20px 0px
+    .count
+      position: relative
+      line-height: 0
+      right: 45px
+      top: 15px
+      font-weight: bold
+      font-size: 1.3em
+    .s1,.s2
+      margin: 2px 0px
+      font-family: monaco, courier
+    .showHide
+      text-align: left
+      margin: 10px 0px 10px 0px
+      color: white
+    .code
+      margin: 10px 0px 0px 0px
+      display: none
+      pre.block
+        margin: 5px 0px
+        background-color: #f8f8f8
+        padding: 10px
+        font-family: monaco, courier
+        font-size: .8em
+      
+.clear
+  clear:both
+
+body
+  +font-default
+  background: #fff
+  color: #0d0d0d
+  span.button
+    padding: 1px 4px
+    background-color: #5c5c5c
+    color: white
+  span.button:hover
+    background-color: #9c9c9c
+    cursor: pointer
+  h1
+    font-weight: bold
+    font-size: 1.3em
+    margin-bottom: 20px
+    color: black
+  ul
+    li
+      display: inline
+      a
+        color: #000
+        text-decoration: underline
