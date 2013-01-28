@@ -8,18 +8,27 @@
 
 .content
   margin: 20px auto 20px auto
-  width: 800px
+  width: 700px
   
 .patterns
   .pattern
-    margin: 10px 0px 20px 0px
+    position: relative
+    margin: 40px 0px 0px 0px
     .count
-      position: relative
-      line-height: 0
-      right: 45px
-      top: 15px
+      font-family: helvetica, arial
+      position: absolute
+      left: -65px
+      top: 10px
       font-weight: bold
       font-size: 1.3em
+    .p_count
+      font-family: helvetica, arial
+      float: left
+      position: absolute
+      left: -100px
+      top: 35px
+      font-size: .9em
+      font-weight: 100
     .s1,.s2
       margin: 2px 0px
       font-family: monaco, courier
@@ -51,6 +60,10 @@ body
   span.button:hover
     background-color: #9c9c9c
     cursor: pointer
+  span.highlight
+    background-color: #FFFFA3
+  b
+    font-weight: bold
   h1
     font-weight: bold
     font-size: 1.3em
