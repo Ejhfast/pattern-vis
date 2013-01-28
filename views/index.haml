@@ -7,8 +7,9 @@
         %b
           =unique_projects.to_s
         projects
-      .s1= datum[0]
-      .s2= datum[1]
+      -blank = "<span class='blank'>&nbsp;&nbsp;&nbsp;&nbsp;</span>"
+      .s1= datum[0] == "" ? blank : datum[0]
+      .s2= datum[1] == "" ? blank : datum[1]
       .showHide
         %span.button
           show / hide

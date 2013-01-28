@@ -13,7 +13,7 @@ set :public_folder, 'public'
 set :haml, {:format => :html5} # default Haml format is :xhtml
 
 def get_data
-  data_file = "data/data4"
+  data_file = "data/data5"
   Marshal.load(File.new(data_file).to_a.join)
 end
 
