@@ -12,15 +12,23 @@ set :views, 'views'
 set :public_folder, 'public'
 set :haml, {:format => :html5} # default Haml format is :xhtml
 
-def get_data
-  data_file = "data/data5"
+def get_data(data_file)
   Marshal.load(File.new(data_file).to_a.join)
 end
 
 # Application routes
 get '/' do
-  @data = get_data
+  loader = get_data("data/data15")
+  @stats = loader[0]
+  @data = loader[1]
   haml :index, :layout => :'layouts/application'
+end
+
+get '/freq' do
+  loader = get_data("data/freq_data")
+  @stats = loader[0]
+  @data = loader[1]
+  haml :freq, :layout => :'layouts/application'
 end
 
 get '/about' do

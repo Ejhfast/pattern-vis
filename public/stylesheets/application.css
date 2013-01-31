@@ -61,12 +61,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 .patterns .pattern {
   position: relative;
-  margin: 40px 0px 0px 0px;
+  margin: 30px 0px 0px 0px;
 }
 .patterns .pattern .count {
   font-family: helvetica, arial;
   position: absolute;
-  left: -65px;
+  left: -72px;
   top: 10px;
   font-weight: bold;
   font-size: 1.3em;
@@ -120,6 +120,16 @@ body span.button:hover {
 }
 body span.highlight {
   background-color: #ffffa3;
+}
+body span.proj {
+  background-color: #c7ffd9;
+  padding: 2px 4px;
+  margin: 0px 5px 0px 0px;
+  line-height: 2em;
+}
+body span.loc .num {
+  font-weight: bold;
+  display: inline;
 }
 body b {
   font-weight: bold;
