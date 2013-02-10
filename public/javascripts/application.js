@@ -10,5 +10,7 @@ $(document).ready(function() {
 	$('.showHide').click(function(){
 		$(this).parent().find('.code').toggle()
 	});
+	
+	Tipped.create('.tip', { skin: 'white' });
 
 });

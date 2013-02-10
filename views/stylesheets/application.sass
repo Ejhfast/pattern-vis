@@ -39,23 +39,29 @@
     margin: 12px 0px
     span.title
       text-decoration: underline
+      font-weight: 800
+      color: #444
     a
       color: black
       margin: 0px 2px 0px 0px
     .label
-      font-weight: 100
+      font-weight: 300
       display: inline
       margin: 0px 2px
       padding: 5px
       color: #333
     .name, .is_a, .n_equals, .abstracting_away, .filters, .limited_to, .limits
       float: left
+    .name
+      font-weight: 400
     .n_equals
       width: 10%
     .name, .limited_to
       width: 15%
     .filters
       width: 40%
+      .label
+        cursor: pointer
     .limits
       width: 10%
 
@@ -92,6 +98,7 @@
     .s1,.s2,.s3
       margin: 2px 0px
       font-family: monaco, courier
+      font-size: .9em
     .showHide
       text-align: left
       margin: 10px 0px 10px 0px

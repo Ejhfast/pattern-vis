@@ -102,13 +102,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .directory .file span.title {
   text-decoration: underline;
+  font-weight: 800;
+  color: #444444;
 }
 .directory .file a {
   color: black;
   margin: 0px 2px 0px 0px;
 }
 .directory .file .label {
-  font-weight: 100;
+  font-weight: 300;
   display: inline;
   margin: 0px 2px;
   padding: 5px;
@@ -116,6 +118,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .directory .file .name, .directory .file .is_a, .directory .file .n_equals, .directory .file .abstracting_away, .directory .file .filters, .directory .file .limited_to, .directory .file .limits {
   float: left;
+}
+.directory .file .name {
+  font-weight: 400;
 }
 .directory .file .n_equals {
   width: 10%;
@@ -125,6 +130,9 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 .directory .file .filters {
   width: 40%;
+}
+.directory .file .filters .label {
+  cursor: pointer;
 }
 .directory .file .limits {
   width: 10%;
@@ -168,6 +176,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .patterns .pattern .s1, .patterns .pattern .s2, .patterns .pattern .s3 {
   margin: 2px 0px;
   font-family: monaco, courier;
+  font-size: 0.9em;
 }
 .patterns .pattern .showHide {
   text-align: left;

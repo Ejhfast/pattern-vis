@@ -18,7 +18,7 @@
         ="n=#{f[:name].split("-")[0]}"
       .filters
         -f[:opts].each do |o|
-          .label{:class => o[1]}
+          .label{:class => o[1], :title =>"sample title"}
             =o[0]
       .limited_to
         -if f[:name].split("-").include?("calls")
