@@ -98,7 +98,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   float: left;
   position: relative;
   width: 100%;
-  margin: 20px 0px;
+  margin: 12px 0px;
 }
 .directory .file span.title {
   text-decoration: underline;
