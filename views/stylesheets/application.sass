@@ -10,6 +10,62 @@
   margin: 20px auto 20px auto
   width: 700px
   
+.red
+  background-color: #FCBDBD
+.blue
+  background-color: #C6BDFC
+.green
+  background-color: #BFFCBD
+.orange
+  background-color: #FCE4BD
+.purple
+  background-color: #F7BDFC
+.turq
+  background-color: #BDFBFC
+.yellow
+  background-color: #F9FCBD
+
+
+.directory
+  margin: 20px 0px 0px 0px
+  .file
+    float: left
+    position: relative
+    width: 100%
+    margin: 20px 0px
+    span.title
+      text-decoration: underline
+    a
+      color: black
+      margin: 0px 2px 0px 0px
+    .label
+      font-weight: 100
+      display: inline
+      margin: 0px 2px
+      padding: 5px
+      color: #333
+    .name, .is_a, .n_equals, .abstracting_away, .filters, .limited_to, .limits
+      float: left
+    .n_equals
+      width: 10%
+    .name, .limited_to
+      width: 15%
+    .filters
+      width: 40%
+    .limits
+      width: 10%
+
+.search
+  margin: 30px 0px 40px 0px
+  input[type="text"]
+    border: 1px solid #efefef
+    padding: 5px
+    font-size: 1em
+    margin: 0px 30px 0px 0px
+  label
+    font-weight: 800
+    margin: 0px 10px 0px 0px
+
 .patterns
   .pattern
     position: relative
@@ -29,7 +85,7 @@
       top: 35px
       font-size: .9em
       font-weight: 100
-    .s1,.s2
+    .s1,.s2,.s3
       margin: 2px 0px
       font-family: monaco, courier
     .showHide

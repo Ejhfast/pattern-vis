@@ -1,0 +1,28 @@
+.info
+  We've run a bunch of different analyses:
+.directory
+  .file
+    .name
+      %span.title Dataset
+    .n_equals
+      %span.title N
+    .filters
+      %span.title AST Abstractions
+    .limited_to
+      %span.title Limited To
+  -@files.each do |f|
+    .file
+      .name
+        %a{:href => "?file=#{f[:name]}"}=f[:name]
+      .n_equals
+        ="n=#{f[:name].split("-")[0]}"
+      .filters
+        -f[:opts].each do |o|
+          .label{:class => o[1]}
+            =o[0]
+      .limited_to
+        -if f[:name].split("-").include?("calls")
+          .label.red
+            calls
+    .clear
+  

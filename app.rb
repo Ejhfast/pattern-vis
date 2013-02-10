@@ -18,9 +18,24 @@ end
 
 # Application routes
 get '/' do
-  loader = get_data("data/data15")
-  @stats = loader[0]
-  @data = loader[1]
+  @count = params[:count] ? params[:count].to_i : 2
+  @count = 2 if @count < 2
+  @proj_count = params[:projects] ? params[:projects].to_i : 2
+  loader = get_data("data/"+params[:file]) rescue nil
+  if loader
+    @stats = loader[0]
+    @data = loader[1]
+    @len = @data.first.size - 2
+  else
+    @files = Dir["data/*"].to_a.map do |f|
+      colors = {"--all-ast" => "red", "--junk" => "blue",
+                "--str" => "green", "--var" => "orange", 
+                "--fun" => "purple", "--fargs" => "yellow", 
+                "--lit" => "turq"}
+      opts = get_data(f)[0][:options].select{|x| x != "--all-ast" && x != "--just-calls"}
+      {:name => f.split("/")[1], :opts => opts.map{|x| [x.split("--")[1], colors[x]]}}
+    end
+  end
   haml :index, :layout => :'layouts/application'
 end
 
@@ -29,6 +44,13 @@ get '/freq' do
   @stats = loader[0]
   @data = loader[1]
   haml :freq, :layout => :'layouts/application'
+end
+
+get '/m3' do
+  loader = get_data("data/data3chain_no_argsA")
+  @stats = loader[0]
+  @data = loader[1]
+  haml :m3, :layout => :'layouts/application'
 end
 
 get '/about' do
