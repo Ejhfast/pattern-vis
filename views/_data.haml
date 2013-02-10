@@ -41,7 +41,7 @@
           -datum[@len+1].each do |lst|
             %pre.block
               -highlight = lst[2].split("\n")
-              -(0..(@len-1)).each {|i| highlight[lst[3].to_i+i] = "<span class='highlight'>"+highlight[lst[3].to_i+i]+"</span>"}
+              -(0..(@len-1)).each {|i| highlight[lst[3].to_i+i] = "<span class='highlight'>"+CGI::escapeHTML(highlight[lst[3].to_i+i])+"</span>"}
               -highlight = highlight.join("\n")
-              ="## #{lst[0]} :: #{lst[1]}\n#{highlight.gsub("/","//")}"            
+              ="## #{lst[0]} :: #{lst[1]}\n#{highlight}"            
         .clear
