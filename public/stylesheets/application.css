@@ -58,6 +58,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin: 20px auto 20px auto;
   width: 700px;
 }
+.content h1 a {
+  color: #222222;
+  text-decoration: none;
+}
 
 .red {
   background-color: #fcbdbd;
