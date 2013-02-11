@@ -10,7 +10,7 @@
       %span.title AST Abstractions
     .limited_to
       %span.title Limited To
-  -@files.each do |f|
+  -@files.sort_by{|x| x[:name].split("-")[0].to_i}.each do |f|
     .file
       .name
         %a{:href => "?file=#{f[:name]}"}=f[:name]

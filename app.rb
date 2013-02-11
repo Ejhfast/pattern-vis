@@ -21,6 +21,7 @@ get '/' do
   @count = params[:count] ? params[:count].to_i : 2
   @count = 2 if @count < 2
   @proj_count = params[:projects] ? params[:projects].to_i : 2
+  @bits = params[:bits] ? params[:bits].to_i : 5
   loader = get_data("data/"+params[:file]) rescue nil
   if loader
     @stats = loader[0]

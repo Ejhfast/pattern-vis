@@ -146,6 +146,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   padding: 5px;
   font-size: 1em;
   margin: 0px 30px 0px 0px;
+  width: 50px;
 }
 .search label {
   font-weight: 800;
@@ -160,18 +161,21 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-family: helvetica, arial;
   position: absolute;
   left: -72px;
-  top: 10px;
+  top: 5px;
   font-weight: bold;
   font-size: 1.3em;
 }
-.patterns .pattern .p_count {
+.patterns .pattern .p_count, .patterns .pattern .bits {
   font-family: helvetica, arial;
   float: left;
   position: absolute;
-  left: -100px;
-  top: 35px;
+  left: -110px;
+  top: 30px;
   font-size: 0.9em;
   font-weight: 100;
+}
+.patterns .pattern .bits {
+  top: 50px;
 }
 .patterns .pattern .s1, .patterns .pattern .s2, .patterns .pattern .s3 {
   margin: 2px 0px;

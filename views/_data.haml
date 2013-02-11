@@ -18,20 +18,29 @@
     %label
       Min Count
     %input{:type => :text, :placeholder => "min # count", :name => "count", :value => @count}
+    %label
+      Min Bits
+    %input{:type => :text, :placeholder => "min # bits", :name => "bits", :value => @bits}
+    
     %input{:type => :hidden, :name => "file", :value => params[:file]}
     %input{:type => :submit}
 .patterns
   -@data.each do |datum|
     -unique_projects = datum[@len+1].map{|d| d[0].split("/")[2]}.uniq.size
-      -if unique_projects >= @proj_count && datum[@len] >= @count
+    -states = datum.first(@len)
+    -bits = states.map{|x| x.strip}.select{|x| x[0] != "#"}.join(" ").split(" ").uniq.size
+      -if unique_projects >= @proj_count && datum[@len] >= @count && bits > @bits
       .pattern
         .count= datum[@len]
         .p_count
           %b
             =unique_projects.to_s
-          projects
+          proj
+          \/
+          %b
+            =bits
+          bits
         -blank = "<span class='blank'>&nbsp;&nbsp;&nbsp;&nbsp;</span>"
-        -states = datum.first(@len)
         -states.each do |s|
           .s1= s == "" ? blank : s
         .showHide
@@ -40,8 +49,8 @@
         .code
           -datum[@len+1].each do |lst|
             %pre.block
-              -highlight = lst[2].split("\n")
-              -(0..(@len-1)).each {|i| highlight[lst[3].to_i+i] = "<span class='highlight'>"+CGI::escapeHTML(highlight[lst[3].to_i+i])+"</span>"}
+              -highlight = lst[2].split("\n").map{|x| CGI::escapeHTML(x)}
+              -(0..(@len-1)).each {|i| highlight[lst[3].to_i+i] = "<span class='highlight'>"+highlight[lst[3].to_i+i]+"</span>"}
               -highlight = highlight.join("\n")
               ="## #{lst[0]} :: #{lst[1]}\n#{highlight}"            
         .clear
