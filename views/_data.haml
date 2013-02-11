@@ -28,7 +28,7 @@
   -@data.each do |datum|
     -unique_projects = datum[@len+1].map{|d| d[0].split("/")[2]}.uniq.size
     -states = datum.first(@len)
-    -bits = states.map{|x| x.strip}.select{|x| x[0] != "#"}.join(" ").split(" ").uniq.size
+    -bits = states.map{|x| x.strip}.select{|x| x[0] != "#"}.join(" ").split(/ |\./).uniq.size
       -if unique_projects >= @proj_count && datum[@len] >= @count && bits > @bits
       .pattern
         .count= datum[@len]
