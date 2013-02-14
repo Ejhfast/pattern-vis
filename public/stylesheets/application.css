@@ -141,41 +141,72 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 .search {
   margin: 30px 0px 40px 0px;
 }
+.search .field {
+  float: left;
+  width: 50%;
+  margin: 5px 0px 0px 0px;
+}
+.search .field.submit {
+  width: 100%;
+}
 .search input[type="text"] {
+  float: left;
+  width: 30%;
   border: 1px solid #efefef;
   padding: 5px;
   font-size: 1em;
-  margin: 0px 30px 0px 0px;
-  width: 50px;
+}
+.search input[type="submit"] {
+  float: left;
+  margin: 10px 0px 0px 0px;
 }
 .search label {
+  float: left;
+  width: 50%;
+  padding: 8px 10% 0px 0px;
   font-weight: 800;
   margin: 0px 10px 0px 0px;
+  width: 100px;
+}
+.search label.tip span.bdr {
+  border-bottom: 1px dotted #333333;
+}
+.search .top_results {
+  float: left;
+  width: 100%;
+  margin: 20px 0px 0px 0px;
+  padding: 0px 0px 10px 0px;
+  font-weight: 200;
+  text-align: right;
+  border-bottom: 1px solid #efefef;
 }
 
+.patterns {
+  float: left;
+}
 .patterns .pattern {
   position: relative;
-  margin: 30px 0px 0px 0px;
+  margin: 40px 0px 0px 0px;
 }
 .patterns .pattern .count {
   font-family: helvetica, arial;
   position: absolute;
   left: -72px;
-  top: 5px;
+  top: -5px;
   font-weight: bold;
   font-size: 1.3em;
 }
-.patterns .pattern .p_count, .patterns .pattern .bits {
+.patterns .pattern .p_count, .patterns .pattern .bits, .patterns .pattern .pmf {
   font-family: helvetica, arial;
   float: left;
   position: absolute;
   left: -110px;
-  top: 30px;
+  top: 20px;
   font-size: 0.9em;
   font-weight: 100;
 }
-.patterns .pattern .bits {
-  top: 50px;
+.patterns .pattern .pmf {
+  top: 40px;
 }
 .patterns .pattern .s1, .patterns .pattern .s2, .patterns .pattern .s3 {
   margin: 2px 0px;

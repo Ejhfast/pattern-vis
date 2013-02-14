@@ -11,6 +11,6 @@ $(document).ready(function() {
 		$(this).parent().find('.code').toggle()
 	});
 	
-	Tipped.create('.tip', { skin: 'white' });
+	Tipped.create('.tip', { skin: 'white', hook: { target:  'bottomleft', tooltip: 'topleft' } });
 
 });
