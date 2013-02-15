@@ -72,11 +72,11 @@ get '/' do
 end
 
 get '/all' do
-  @count = params[:count] ? params[:count].to_i : 2
-  @proj_count = params[:projects] ? params[:projects].to_i : 2
-  @bits = params[:bits] ? params[:bits].to_i : 200
+  @count = params[:count] ? params[:count].to_i : 1
+  @proj_count = params[:projects] ? params[:projects].to_i : 1
+  @bits = params[:bits] ? params[:bits].to_i : 100
   @pmf = params[:pmf] ? params[:pmf].to_i : 1
-  @info = params[:info] ? params[:info].to_i : 200
+  @info = params[:info] ? params[:info].to_i : 100
   @stats = Stats.all.first #{:loc => 180000, :projects => ["lots_proj"]}
   @total_size = CPattern.all.size
   req = CPattern.where(:p_count => {:$gt => @proj_count}, :bits => {:$gt => @bits }, :count => {:$gt => @count}, :info => {:$gt => @info}).sort(:count => -1)
