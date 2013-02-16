@@ -7,33 +7,34 @@
     .num
       =@stats[:projects].size
     popular ruby projects:
-  -@stats[:projects].map{|x| x.split("_").first(x.split("_").size-1).join("_")}.each do |p|
+  -@stats[:projects].each do |p|
     %span.proj
       =p
 .search
   %form{:action => '/all', :method => :get}
     .field
       %label
-        Min Projects
+        Min # Projects
       %input{:type => :text, :placeholder => "min # projects", :name => "projects", :value => @proj_count}
     .field
       %label
-        Min Count
+        Min Total Count
       %input{:type => :text, :placeholder => "min # count", :name => "count", :value => @count}
     .field
       %label{:class => 'tip', :title => "Total information divided by length of pattern" }
         %span.bdr
-          Min ID
-      %input{:type => :text, :placeholder => "min density bits", :name => "bits", :value => @bits}
+          Min I. Density
+      %input{:type => :text, :placeholder => "min density bits", :name => "info_d", :value => @info_d}
     .field
       %label{:class => 'tip', :title => "Pointwise mutual information: P(X1..XN)/P(X1)...P(XN)" }
         %span.bdr
           Min PMI
-      %input{:type => :text, :placeholder => "min # pmf", :name => "pmf", :value => @pmf}
+      %input{:type => :text, :placeholder => "min # pmi", :name => "pmi", :value => @pmi}
     .field
-      %label
-        Min Info
-      %input{:type => :text, :placeholder => "min # bits", :title => "Total information via unique token count", :name => "info", :value => @info}
+      %label{:class => 'tip', :title => "Total information via unique token count"}
+        %span.bdr
+          Min Information
+      %input{:type => :text, :placeholder => "min # bits", :name => "info", :value => @info}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
   .top_results
@@ -47,32 +48,46 @@
   -@data.each do |d|
     -unique_projects = d.p_count
     -states = d.pattern
-    -bits = d.bits
+    -bits = d.info_d
     .pattern
-      .count= d.count
-      .p_count
-        %b
-          =unique_projects.to_s
-        proj
-        \/
-        %b
-          =bits
-        bits
-      .pmf
-        %b
-          =d.pmf.to_i
-        pmi
+      .meta
+        .fifth
+          %b.n=d.count
+          Total Count
+        .fifth
+          %b.n=d.p_count
+          Project Count
+        .fifth
+          %b.n=d.info
+          Information
+        .fifth
+          %b.n=d.info_d
+          Info. Density
+        .fifth
+          %b.n=d.pmi
+          PMI
+      .break
       -blank = "<span class='blank'>&nbsp;&nbsp;&nbsp;&nbsp;</span>"
-      -states.each do |s|
-        .s1= s == "" ? blank : s
-      .showHide
-        %span.button
-          show / hide
-      .code
-        -d.code.each do |lst|
-          %pre.block
-            -highlight = lst[2].map{|x| CGI::escapeHTML(x)}
-            -(0..(states.size-1)).each {|i| highlight[lst[3].to_i+i] = "<span class='highlight'>"+highlight[lst[3].to_i+i]+"</span>"}
-            -highlight = highlight.join("\n")
-            ="## #{lst[0]} :: #{lst[1]}\n#{highlight}"            
-      .clear
+      .states
+        -states.each_index do |i|
+          .s1
+            //<![CDATA[
+            = states[i] == "" ? blank : "#{Ripper.lex(states[i]).map{|t| color_token(t)}.join}"
+            //]>
+            .numeral="#{i+1}."
+        .showHide.code_toggle
+          %span.button
+            snippets
+        .showHide.token_toggle
+          %span.button
+            tokens
+        .tokens
+          %pre.block=Ripper.lex(d.pattern.join("\n")).map{|t| "<span class='term'>#{t[1]}</span>(\"#{t[2].strip}\")"}.join("\n")
+        .code
+          -d.code.each do |lst|
+            %pre.block
+              -highlight = lst[3].map{|x| CGI::escapeHTML(x)}
+              -(0..[states.size-1,highlight.size-1-lst[1].to_i].min).each {|i| highlight[lst[1].to_i+i] = "<span class='highlight'>"+highlight[lst[1].to_i+i]+"</span>"}
+              -highlight = highlight.join("\n")
+              ="## #{lst[0]} :: #{lst[2]}\n#{highlight}"            
+        .clear

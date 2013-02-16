@@ -10,9 +10,9 @@ development:
       # server setup, and at least 3 for a replica set. Hosts must be
       # an array of host:port pairs. This session is single server.
       hosts:
-        - ethan.mongohq.com:10057
+        - miles.mongohq.com:10046
       # Define the default database name.
-      database: code-patterns
+      database: code-patterns-lex
       # Since this database points at a session connected to MongoHQ, we must
       # provide the authentication details.
       username: taazr

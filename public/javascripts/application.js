@@ -7,8 +7,11 @@ $(document).ready(function() {
 	  .addClass('link external')
 	  .attr('target', '_blank');
 	
-	$('.showHide').click(function(){
+	$('.showHide.code_toggle').click(function(){
 		$(this).parent().find('.code').toggle()
+	});
+	$('.showHide.token_toggle').click(function(){
+		$(this).parent().find('.tokens').toggle()
 	});
 	
 	Tipped.create('.tip', { skin: 'white', hook: { target:  'bottomleft', tooltip: 'topleft' } });

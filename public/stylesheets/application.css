@@ -181,18 +181,42 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border-bottom: 1px solid #efefef;
 }
 
+.break {
+  float: left;
+  width: 100%;
+}
+
 .patterns {
   float: left;
 }
 .patterns .pattern {
+  float: left;
+  width: 100%;
   position: relative;
-  margin: 40px 0px 0px 0px;
+  margin: 20px 0px 20px 0px;
+}
+.patterns .pattern .meta {
+  width: 100%;
+  float: left;
+  margin: 10px 0px 20px 0px;
+}
+.patterns .pattern .meta .fifth {
+  font-size: 0.9em;
+  font-family: helvetica, arial;
+  font-weight: 200;
+  float: left;
+  width: 20%;
+}
+.patterns .pattern .meta .fifth .n {
+  margin: 0px 2px 0px 0px;
 }
 .patterns .pattern .count {
   font-family: helvetica, arial;
   position: absolute;
-  left: -72px;
-  top: -5px;
+  left: -82px;
+  top: -10px;
+}
+.patterns .pattern .count span.big {
   font-weight: bold;
   font-size: 1.3em;
 }
@@ -200,37 +224,57 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-family: helvetica, arial;
   float: left;
   position: absolute;
-  left: -110px;
-  top: 20px;
+  left: -130px;
+  top: 15px;
   font-size: 0.9em;
   font-weight: 100;
 }
 .patterns .pattern .pmf {
-  top: 40px;
+  top: 35px;
 }
 .patterns .pattern .s1, .patterns .pattern .s2, .patterns .pattern .s3 {
+  position: relative;
+  float: left;
+  width: 98%;
   margin: 2px 0px;
+  padding: 3px 1%;
   font-family: monaco, courier;
+  font-size: 1em;
+  background-color: #222222;
+  color: #efefef;
+}
+.patterns .pattern .s1 .numeral, .patterns .pattern .s2 .numeral, .patterns .pattern .s3 .numeral {
+  color: black;
+  font-family: courier;
+  font-weight: 200;
+  position: absolute;
   font-size: 0.9em;
+  bottom: 2px;
+  left: -19px;
 }
 .patterns .pattern .showHide {
-  text-align: left;
-  margin: 10px 0px 10px 0px;
+  float: left;
+  margin: 20px 10px 10px 0px;
   color: white;
 }
-.patterns .pattern .code {
+.patterns .pattern .code, .patterns .pattern .tokens {
+  float: left;
   margin: 10px 0px 0px 0px;
   display: none;
 }
-.patterns .pattern .code pre.block {
+.patterns .pattern .code pre.block, .patterns .pattern .tokens pre.block {
   margin: 5px 0px;
+  width: 680px;
   background-color: #f8f8f8;
   padding: 10px;
   font-family: monaco, courier;
   font-size: 0.8em;
 }
+.patterns .pattern .code pre.block span.term, .patterns .pattern .tokens pre.block span.term {
+  font-weight: 800;
+}
 .patterns .pattern .blank {
-  background-color: #deeeff;
+  background-color: #777777;
 }
 
 body {
@@ -239,7 +283,7 @@ body {
   color: #0d0d0d;
 }
 body span.button {
-  padding: 1px 4px;
+  padding: 2px 4px;
   background-color: #5c5c5c;
   color: white;
 }
