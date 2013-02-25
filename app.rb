@@ -34,6 +34,18 @@ class Stats
   field :options, type: Array, default: []
 end
 
+class Line
+  include Mongoid::Document
+  field :file, type: String
+  field :text, type: String
+  field :number, type: Integer
+  
+  def around(n)
+    Line.where(:file => file, :number => {$gt => number - n, $lt => number + n})
+  end
+  
+end
+
 # Helpers
 require './lib/render_partial'
 
@@ -104,7 +116,7 @@ get '/all' do
   st = Stats.all.first 
   @stats = {:loc => st[:loc], :projects => st[:projects]}
   @total_size = CPattern.all.size
-  req = CPattern.where(:p_count => {:$gte => @proj_count}, :info_d => {:$gte => @info_d }, :count => {:$gte => @count}, :info => {:$gte => @info}).sort(:count => -1)
+  req = CPattern.where(:count => {:$gte => @count}, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }).sort(:count => -1)
   @data = req.select{|x| x.pmi > @pmi || x.n == 1}
   haml :combine, :layout => :'layouts/application'
 end
@@ -115,6 +127,13 @@ get '/freq' do
   @data = loader[1]
   haml :freq, :layout => :'layouts/application'
 end
+
+get '/file' do
+ file = params[:f].gsub("data/","data//")
+ @txt = Line.where(:file => file).sort(:number => 1).map{|x| params[:hl].to_i == x.number + 1 ? "<span class='highlight'>"+x.text+"</span>" : x.text}.join("\n")
+ haml :file, :layout => :'layouts/application'
+end
+
 
 get '/m3' do
   loader = get_data("data/data3chain_no_argsA")

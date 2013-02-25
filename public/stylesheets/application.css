@@ -138,6 +138,11 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   width: 10%;
 }
 
+.file pre {
+  background-color: #efefef;
+  padding: 5px;
+}
+
 .search {
   margin: 30px 0px 40px 0px;
 }

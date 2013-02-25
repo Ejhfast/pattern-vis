@@ -22,18 +22,21 @@
       %input{:type => :text, :placeholder => "min # count", :name => "count", :value => @count}
     .field
       %label{:class => 'tip', :title => "Total information divided by length of pattern" }
+        Min
         %span.bdr
-          Min I. Density
+          I. Density
       %input{:type => :text, :placeholder => "min density bits", :name => "info_d", :value => @info_d}
     .field
       %label{:class => 'tip', :title => "Pointwise mutual information: P(X1..XN)/P(X1)...P(XN)" }
+        Min
         %span.bdr
-          Min PMI
+          PMI
       %input{:type => :text, :placeholder => "min # pmi", :name => "pmi", :value => @pmi}
     .field
       %label{:class => 'tip', :title => "Total information via unique token count"}
+        Min
         %span.bdr
-          Min Information
+          Information
       %input{:type => :text, :placeholder => "min # bits", :name => "info", :value => @info}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
@@ -85,9 +88,10 @@
           %pre.block=Ripper.lex(d.pattern.join("\n")).map{|t| "<span class='term'>#{t[1]}</span>(\"#{t[2].strip}\")"}.join("\n")
         .code
           -d.code.each do |lst|
+          -link = "<a href='/file?f=#{lst[2]}&hl=#{lst[0]}'>#{lst[2]}</a>"
             %pre.block
               -highlight = lst[3].map{|x| CGI::escapeHTML(x)}
               -(0..[states.size-1,highlight.size-1-lst[1].to_i].min).each {|i| highlight[lst[1].to_i+i] = "<span class='highlight'>"+highlight[lst[1].to_i+i]+"</span>"}
               -highlight = highlight.join("\n")
-              ="## #{lst[0]} :: #{lst[2]}\n#{highlight}"            
+              ="## #{lst[0]} :: #{link}\n#{highlight}"            
         .clear
