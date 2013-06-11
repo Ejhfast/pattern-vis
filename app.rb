@@ -3,6 +3,7 @@ require 'sinatra'
 require 'haml'
 require 'mongoid'
 require 'ripper'
+require 'nokogiri'
 
 # Database stuff
 Mongoid.load!("mongoid.yaml", :development)
@@ -44,6 +45,49 @@ class Line
     Line.where(:file => file, :number => {$gt => number - n, $lt => number + n})
   end
   
+end
+
+def parse_ri(query)
+  ds = Hash.new
+  out = `ri --no-page -f html #{query}`
+  doc = Nokogiri::HTML(out)
+  nodes = doc.css("*")
+  nex = nodes.shift
+  while !nodes.empty? && !nex.css_path.include?("h1")
+    nex = nodes.shift
+  end
+  title = nex.content
+  puts title
+  signature = []
+  description = []
+  option = title.include?("#") ? title : nil
+  
+  nex = nodes.shift
+  while !nodes.empty?
+    if nex.css_path.include?("h3") || option == title
+      option = nex.content unless option == title
+      nex = nodes.shift
+      while !nodes.empty? && !nex.css_path.include?("pre")
+        nex = nodes.shift
+      end
+      while !nodes.empty? && nex.css_path.include?("pre")
+        signature.push(nex.content)
+        nex = nodes.shift
+      end
+      while !nodes.empty? && !nex.css_path.include?("h3")
+        description.push(nex.to_html)
+        nex = nodes.shift
+      end
+      description = description.first(description.size-1) unless description.size == 0
+      ds[[title,option]] = {:signature => signature, :description => description}
+      description = []
+      signature = []
+      option = nil
+    else
+      nex = nodes.shift
+    end
+  end
+  ds.map{|k,v| v}.first
 end
 
 # Helpers
@@ -121,6 +165,33 @@ get '/all' do
   haml :combine, :layout => :'layouts/application'
 end
 
+get '/list' do
+  @count = params[:count] ? params[:count].to_i : 2
+  @proj_count = params[:projects] ? params[:projects].to_i : 2
+  @info_d = params[:info_d] ? params[:info_d].to_i : 3
+  @pmi = params[:pmi] ? params[:pmi].to_i : 50
+  @info = params[:info] ? params[:info].to_i : 5
+  req = CPattern.where(:count => {:$gte => @count}, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }).sort(:count => -1)
+  @data = req.select{|x| x.pmi > @pmi || x.n == 1}.sort_by{|x| x.info_d * -1}
+  @out_str = ""
+  count = 1
+  @data.each do |p|
+    @out_str+="#{count}.\n"
+    @out_str+=p.pattern.join("\n")
+    @out_str+="\n\n"
+    count += 1
+  end
+  headers["Content-type"] = "text";
+  @out_str
+end
+
+get '/query/:q' do
+  resp = parse_ri(params[:q])
+  @q = params[:q]
+  @des = resp[:description]
+  haml :query, :layout => :'layouts/application'
+end
+
 get '/freq' do
   loader = get_data("data/freq_data")
   @stats = loader[0]
@@ -133,7 +204,6 @@ get '/file' do
  @txt = Line.where(:file => file).sort(:number => 1).map{|x| params[:hl].to_i == x.number + 1 ? "<span class='highlight'>"+x.text+"</span>" : x.text}.join("\n")
  haml :file, :layout => :'layouts/application'
 end
-
 
 get '/m3' do
   loader = get_data("data/data3chain_no_argsA")
