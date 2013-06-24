@@ -7,6 +7,8 @@ require 'nokogiri'
 
 # Database stuff
 Mongoid.load!("mongoid.yaml", :development)
+#Mongoid.load!("rails_test_db.yaml", :development)
+
 
 class CPattern
   include Mongoid::Document
