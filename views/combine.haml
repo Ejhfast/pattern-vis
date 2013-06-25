@@ -38,6 +38,10 @@
         %span.bdr
           Information
       %input{:type => :text, :placeholder => "min # bits", :name => "info", :value => @info}
+    .field
+      %label
+        Min # Lines
+      %input{:type => :text, :placeholder => "min # lines", :name => "min_l", :value => @min_lines}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
   .top_results
