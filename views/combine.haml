@@ -54,6 +54,11 @@
 .patterns
   -@data.each do |d|
     -unique_projects = d.p_count
+    -bestNames = d.pattern.map do |line|
+      -newLine = Ripper.lex(line).map do |token|
+        -token = token[2]
+        -d.names.include?(token) ? d.names[token][0][0] : token
+      -newLine.join
     -states = d.pattern
     -bits = d.info_d
     .pattern
@@ -82,12 +87,21 @@
             = states[i] == "" ? blank : "#{Ripper.lex(states[i]).map{|t| color_token(t)}.join}"
             //]>
             .numeral="#{i+1}."
+          .s2
+            //<![CDATA[
+            = bestNames[i] == "" ? blank : "#{Ripper.lex(bestNames[i]).map{|t| color_token(t)}.join}"
+            //]>
         .showHide.code_toggle
           %span.button
             snippets
         .showHide.token_toggle
           %span.button
             tokens
+        .showHide.name_toggle
+          %span.button
+            names
+        .name
+          -#%pre.block=d.names.to_a.map{|pair| "<span>#{pair[0]}:\n#{pair[1].to_s}</span>"}.join("\n")
         .tokens
           %pre.block=Ripper.lex(d.pattern.join("\n")).map{|t| "<span class='term'>#{t[1]}</span>(\"#{t[2].strip}\")"}.join("\n")
         .code

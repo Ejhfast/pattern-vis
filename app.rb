@@ -6,7 +6,8 @@ require 'ripper'
 require 'nokogiri'
 
 # Database stuff
-Mongoid.load!("mongoid.yaml", :development)
+#Mongoid.load!("mongoid.yaml", :development)
+Mongoid.load!("test.yaml", :development)
 #Mongoid.load!("rails_test_db.yaml", :development)
 
 
@@ -22,6 +23,8 @@ class CPattern
   field :info_d, type: Float
   field :pmi, type: Integer
   field :p_count, type: Integer
+  field :hash_str, type: String
+  field :names, type: Hash
   
   index({ pattern: 1, n: 1 }, { unique: true })
     
@@ -156,9 +159,9 @@ end
 get '/all' do
   @count = params[:count] ? params[:count].to_i : 2
   @proj_count = params[:projects] ? params[:projects].to_i : 2
-  @info_d = params[:info_d] ? params[:info_d].to_i : 3
+  @info_d = params[:info_d] ? params[:info_d].to_i : 6
   @pmi = params[:pmi] ? params[:pmi].to_i : 50
-  @info = params[:info] ? params[:info].to_i : 5
+  @info = params[:info] ? params[:info].to_i : 9
   @min_lines = params[:min_l] ? params[:min_l].to_i : 1
   st = Stats.all.first 
   @stats = {:loc => st[:loc], :projects => st[:projects]}
