@@ -163,10 +163,12 @@ get '/all' do
   @pmi = params[:pmi] ? params[:pmi].to_i : 50
   @info = params[:info] ? params[:info].to_i : 9
   @min_lines = params[:min_l] ? params[:min_l].to_i : 1
+  @substr = params[:substr] ? params[:substr] : ""
   st = Stats.all.first 
   @stats = {:loc => st[:loc], :projects => st[:projects]}
   @total_size = CPattern.all.size
-  req = CPattern.where(:count => {:$gte => @count}, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}).sort(:count => -1)
+# security leak with hash_str???
+  req = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}).sort(:count => -1)
   @data = req.select{|x| x.pmi > @pmi || x.n == 1}
   haml :combine, :layout => :'layouts/application'
 end
