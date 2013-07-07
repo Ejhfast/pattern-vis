@@ -262,12 +262,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   margin: 20px 10px 10px 0px;
   color: white;
 }
-.patterns .pattern .code, .patterns .pattern .tokens {
+.patterns .pattern .code, .patterns .pattern .tokens, .patterns .pattern .names {
   float: left;
   margin: 10px 0px 0px 0px;
   display: none;
 }
-.patterns .pattern .code pre.block, .patterns .pattern .tokens pre.block {
+.patterns .pattern .code pre.block, .patterns .pattern .tokens pre.block, .patterns .pattern .names pre.block {
   margin: 5px 0px;
   width: 680px;
   background-color: #f8f8f8;
@@ -275,7 +275,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-family: monaco, courier;
   font-size: 0.8em;
 }
-.patterns .pattern .code pre.block span.term, .patterns .pattern .tokens pre.block span.term {
+.patterns .pattern .code pre.block span.term, .patterns .pattern .tokens pre.block span.term, .patterns .pattern .names pre.block span.term {
   font-weight: 800;
 }
 .patterns .pattern .blank {

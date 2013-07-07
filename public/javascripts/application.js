@@ -13,6 +13,9 @@ $(document).ready(function() {
 	$('.showHide.token_toggle').click(function(){
 		$(this).parent().find('.tokens').toggle()
 	});
+    $('.showHide.name_toggle').click(function(){
+        $(this).parent().find('.names').toggle()
+    });
 	
 	Tipped.create('.tip', { skin: 'white', hook: { target:  'bottomleft', tooltip: 'topleft' } });
 

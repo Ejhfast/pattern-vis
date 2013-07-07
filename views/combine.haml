@@ -42,6 +42,10 @@
       %label
         Min # Lines
       %input{:type => :text, :placeholder => "min # lines", :name => "min_l", :value => @min_lines}
+    .field
+      %label{:class => 'tip', :title => "Search the generic-name patterns for a substring"}
+        Contains
+      %input{:type => :text, :name => "substr", :value => @substr}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
   .top_results
@@ -83,14 +87,12 @@
       .states
         -states.each_index do |i|
           .s1
-            //<![CDATA[
-            = states[i] == "" ? blank : "#{Ripper.lex(states[i]).map{|t| color_token(t)}.join}"
-            //]>
+            =#%label{:class => 'tip', :title => (bestNames[i] == '' ? blank : "#{Ripper.lex(bestNames[i]).map{|t| color_token(t)}.join}") }
+            %label{:class => 'tip', :title => "Snippet with most popular tokens:\n #{bestNames.join("\n")}" }
+              //<![CDATA[
+              = states[i] == "" ? blank : "#{Ripper.lex(states[i]).map{|t| color_token(t)}.join}"
+              //]>
             .numeral="#{i+1}."
-          .s2
-            //<![CDATA[
-            = bestNames[i] == "" ? blank : "#{Ripper.lex(bestNames[i]).map{|t| color_token(t)}.join}"
-            //]>
         .showHide.code_toggle
           %span.button
             snippets
@@ -100,8 +102,6 @@
         .showHide.name_toggle
           %span.button
             names
-        .name
-          -#%pre.block=d.names.to_a.map{|pair| "<span>#{pair[0]}:\n#{pair[1].to_s}</span>"}.join("\n")
         .tokens
           %pre.block=Ripper.lex(d.pattern.join("\n")).map{|t| "<span class='term'>#{t[1]}</span>(\"#{t[2].strip}\")"}.join("\n")
         .code
@@ -112,4 +112,9 @@
               -(0..[states.size-1,highlight.size-1-lst[1].to_i].min).each {|i| highlight[lst[1].to_i+i] = "<span class='highlight'>"+highlight[lst[1].to_i+i]+"</span>"}
               -highlight = highlight.join("\n")
               ="## #{lst[0]} :: #{link}\n#{highlight}"            
+        .names
+          -d.names.each do |token, namelst|
+            %pre.block
+              -nameInfo = "<table><tr />" + namelst.map{|name| "<td /><span class='term'>#{name[0]}</span><td /> was used #{name[1]} times among #{name[2]} projects</td>"}.join("\n<tr />") + "</table>"
+              ="## #{token} :: \n#{nameInfo}"
         .clear
