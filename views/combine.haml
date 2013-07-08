@@ -88,7 +88,7 @@
         -states.each_index do |i|
           .s1
             =#%label{:class => 'tip', :title => (bestNames[i] == '' ? blank : "#{Ripper.lex(bestNames[i]).map{|t| color_token(t)}.join}") }
-            %label{:class => 'tip', :title => "Snippet with most popular tokens:\n #{bestNames.join("\n")}" }
+            %label{:class => 'tip', :title => "Most popular tokens:\n #{bestNames.join("\n")}" }
               //<![CDATA[
               = states[i] == "" ? blank : "#{Ripper.lex(states[i]).map{|t| color_token(t)}.join}"
               //]>
