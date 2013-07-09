@@ -46,6 +46,10 @@
       %label{:class => 'tip', :title => "Search the generic-name patterns for a substring"}
         Contains
       %input{:type => :text, :name => "substr", :value => @substr}
+    .field
+      %label{:class => 'tip', :title => "fpScore: sum of log of # of files in each project, usually a very small number"}
+        Min fpScore
+      %input{:type => :text, :name => "fpScore", :value => @fpScore}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
   .top_results
@@ -79,6 +83,9 @@
         .fifth
           %b.n=d.info_d
           Info. Density
+        .fifth
+          %b.n=d.fpScore.round(2)
+          fpScore
         .fifth
           %b.n=d.pmi
           PMI

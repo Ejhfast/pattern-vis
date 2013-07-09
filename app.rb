@@ -22,6 +22,7 @@ class CPattern
   field :info, type: Integer
   field :info_d, type: Float
   field :pmi, type: Integer
+  field :fpScore, type: Float
   field :p_count, type: Integer
   field :hash_str, type: String
   field :names, type: Hash
@@ -161,14 +162,16 @@ get '/all' do
   @proj_count = params[:projects] ? params[:projects].to_i : 2
   @info_d = params[:info_d] ? params[:info_d].to_i : 6
   @pmi = params[:pmi] ? params[:pmi].to_i : 50
+  @fpScore = params[:fpScore] ? params[:fpScore].to_i : 2
   @info = params[:info] ? params[:info].to_i : 9
   @min_lines = params[:min_l] ? params[:min_l].to_i : 1
   @substr = params[:substr] ? params[:substr] : ""
   st = Stats.all.first 
   @stats = {:loc => st[:loc], :projects => st[:projects]}
   @total_size = CPattern.all.size
-# security leak with hash_str???
-  req = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}).sort(:count => -1)
+# TO DO: security leak with hash_str???
+  #@data = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}, :fpScore => {:$gte => @fpScore}, :$or => [{:n => 1},{:pmi => {:$gte => @pmi}}]).sort(:fpScore => -1)
+  req = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}, :fpScore => {:$gte => @fpScore}).sort(:fpScore => -1)
   @data = req.select{|x| x.pmi > @pmi || x.n == 1}
   haml :combine, :layout => :'layouts/application'
 end
