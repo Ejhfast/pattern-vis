@@ -151,8 +151,17 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   width: 50%;
   margin: 5px 0px 0px 0px;
 }
+.search .widefield {
+  float: left;
+  width: 100%;
+  margin: 5px 0px 0px 0px;
+  rows: 4;
+}
 .search .field.submit {
   width: 100%;
+}
+.search input[type="checkbox"] {
+  float: right;
 }
 .search input[type="text"] {
   float: left;
@@ -160,6 +169,15 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   border: 1px solid #efefef;
   padding: 5px;
   font-size: 1em;
+}
+.search textarea {
+  float: left;
+  width: 72%;
+  height: 60px;
+  border: 1px solid #efefef;
+  padding: 5px;
+  font-size: 1em;
+  margin: 0px 0px 0px 100px;
 }
 .search input[type="submit"] {
   float: left;
@@ -172,6 +190,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   font-weight: 800;
   margin: 0px 10px 0px 0px;
   width: 100px;
+}
+.search label.check {
+  padding: 2px 20% 0px 0px;
+  width: 100px;
+  float: right;
+  font-weight: 500;
 }
 .search label.tip span.bdr {
   border-bottom: 1px dotted #333333;

@@ -43,13 +43,29 @@
         Min # Lines
       %input{:type => :text, :placeholder => "min # lines", :name => "min_l", :value => @min_lines}
     .field
-      %label{:class => 'tip', :title => "Search the generic-name patterns for a substring"}
-        Contains
-      %input{:type => :text, :name => "substr", :value => @substr}
-    .field
       %label{:class => 'tip', :title => "fpScore: sum of log of # of files in each project, usually a very small number"}
         Min fpScore
       %input{:type => :text, :name => "fpScore", :value => @fpScore}
+    .widefield
+      %label{:class => 'tip', :title => "Search the generic-name patterns for a substring"}
+        Contains:
+      %textarea{:name => "substr"}
+        =@substr
+    .field
+    .field
+      %label{:class => 'tip check', :title => "Use a lexed version of this text to search"}
+        lex this pattern
+      %input{:type => :checkbox, :name => "lexSubstrFlag", :value => @lexSubstrFlag}
+    .widefield
+      %label{:class => 'tip', :title => "Search for patterns without this substring"}
+        Excluding:
+      %textarea{:name => "xsubstr"}
+        =@xsubstr
+    .field
+    .field
+      %label{:class => 'tip check', :title => "Use a lexed version of this text to search"}
+        lex this pattern
+      %input{:type => :checkbox, :name => "lexSubstr2Flag", :value => @lexSubstr2Flag}
     .field.submit
       %input{:type => :submit, :value => "Filter Patterns"}
   .top_results

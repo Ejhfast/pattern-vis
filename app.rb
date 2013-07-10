@@ -5,6 +5,8 @@ require 'mongoid'
 require 'ripper'
 require 'nokogiri'
 
+load 'lexer.rb'
+
 # Database stuff
 #Mongoid.load!("mongoid.yaml", :development)
 Mongoid.load!("test.yaml", :development)
@@ -166,13 +168,17 @@ get '/all' do
   @info = params[:info] ? params[:info].to_i : 9
   @min_lines = params[:min_l] ? params[:min_l].to_i : 1
   @substr = params[:substr] ? params[:substr] : ""
+  @xsubstr = params[:xsubstr] ? params[:xsubstr] : ""
+  @lexSubstrFlag = params[:lexSubstrFlag] ? params[:lexSubstrFlag] : false
+  @lexSubstr2Flag = params[:lexSubstr2Flag] ? params[:lexSubstr2Flag] : false
+  @substr = transform(@substr)[0].join if @lexSubstrFlag
+  @xsubstr = transform(@xsubstr)[0].join if @lexSubstr2Flag
   st = Stats.all.first 
   @stats = {:loc => st[:loc], :projects => st[:projects]}
   @total_size = CPattern.all.size
 # TO DO: security leak with hash_str???
-  #@data = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}, :fpScore => {:$gte => @fpScore}, :$or => [{:n => 1},{:pmi => {:$gte => @pmi}}]).sort(:fpScore => -1)
-  req = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/m, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}, :fpScore => {:$gte => @fpScore}).sort(:fpScore => -1)
-  @data = req.select{|x| x.pmi > @pmi || x.n == 1}
+  @data = CPattern.where(:count => {:$gte => @count}, :hash_str => /.*#{@substr}.*/mix, :p_count => {:$gte => @proj_count}, :info => {:$gte => @info}, :info_d => {:$gte => @info_d }, :n => {:$gte => @min_lines}, :fpScore => {:$gte => @fpScore}, :$or => [{:n => 1},{:pmi => {:$gte => @pmi}}]).sort(:fpScore => -1)
+  @data = @data.select{|data| !(data.hash_str =~ /.*#{@xsubstr}.*/mix)}
   haml :combine, :layout => :'layouts/application'
 end
 
